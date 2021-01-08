@@ -1,9 +1,7 @@
 import sys
 import time
 import json
-import urllib
 import logging
-import requests
 import threading
 import ChatBotModel
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
