@@ -22,21 +22,34 @@ def build_menu(buttons, n_cols, header_buttons=None, footer_buttons=None):
 def check_order_graph(bot, args):
     try:
         set_menu = []
-        set_menu.append(InlineKeyboardButton("그래프_특만기", callback_data="graph_spc"))
-        set_menu.append(InlineKeyboardButton("그래프_갑만기", callback_data="graph_gap"))
-        set_menu.append(InlineKeyboardButton("그래프_일반", callback_data="graph_gen"))
-        set_menu.append(InlineKeyboardButton("그래프_초빙", callback_data="graph_chobing"))
-        set_menu.append(InlineKeyboardButton("그래프_유예", callback_data="graph_wait"))
-        set_menu.append(InlineKeyboardButton("그래프_비교과", callback_data="graph_non_subject"))
+        set_menu.append(InlineKeyboardButton("특만기", callback_data="graph_spc"))
+        set_menu.append(InlineKeyboardButton("갑만기", callback_data="graph_gap"))
+        set_menu.append(InlineKeyboardButton("일반", callback_data="graph_gen"))
+        set_menu.append(InlineKeyboardButton("초빙", callback_data="graph_chobing"))
+        set_menu.append(InlineKeyboardButton("유예", callback_data="graph_wait"))
+        set_menu.append(InlineKeyboardButton("비교과", callback_data="graph_non_subject"))
         set_menu_markup = InlineKeyboardMarkup(build_menu(set_menu, len(set_menu) - 1)) 
         
         # 봇의 응답 메세지 
-        insa2020.sendMessage(bot.message.chat.id, "자비스입니다.\n무엇을 알려드릴까요?", reply_markup=set_menu_markup)
+        insa2020.sendMessage(bot.message.chat.id, "인비스입니다.\n어떤 그래프를 보여드릴까요?", reply_markup=set_menu_markup)
+    except:
+        print("error from check_order")
+
+def check_order_map(bot, args):
+    try:
+        set_menu = []
+        set_menu.append(InlineKeyboardButton("내신현황", callback_data="map_all"))
+        set_menu.append(InlineKeyboardButton("1희망", callback_data="map_first"))
+        set_menu.append(InlineKeyboardButton("학교현황", callback_data="map_school"))
+        set_menu_markup = InlineKeyboardMarkup(build_menu(set_menu, len(set_menu) - 1)) 
+        
+        # 봇의 응답 메세지 
+        insa2020.sendMessage(bot.message.chat.id, "인비스입니다.\n어떤 지도를 보여드릴까요?", reply_markup=set_menu_markup)
     except:
         print("error from check_order")
 
 # 버튼을 눌렀을 때 처리하기    
-def manager_order_graph(id, data):
+def manager_order(id, data):
     try:
         if data == 'graph_spc':
             comment = dic_info[data]
@@ -49,6 +62,12 @@ def manager_order_graph(id, data):
         elif data == 'graph_wait':
             comment = dic_info[data]
         elif data == 'graph_non_subject':
+            comment = dic_info[data]
+        elif data == 'map_all':
+            comment = dic_info[data]
+        elif data == 'map_first':
+            comment = dic_info[data]
+        elif data == 'map_school':
             comment = dic_info[data]
         insa2020.sendMessage(id, comment)
 
@@ -67,12 +86,24 @@ def complete_order(id, reply_text, text):
 
 # 버튼을 눌렀을 때
 def callback_get(bot, update):
-    if bot.callback_query.data=="spc":      # 특만기
-        manager_order(bot.callback_query.message.chat.id, 'spc')
-    elif bot.callback_query.data=="gap":    # 갑만기
-        manager_order(bot.callback_query.message.chat.id, 'gap')
-    elif bot.callback_query.data=="gen":    # 일반
-        manager_order(bot.callback_query.message.chat.id, 'gen')
+    if bot.callback_query.data=="graph_spc":      # 특만기
+        manager_order(bot.callback_query.message.chat.id, 'graph_spc')
+    elif bot.callback_query.data=="graph_gap":    # 갑만기
+        manager_order(bot.callback_query.message.chat.id, 'graph_gap')
+    elif bot.callback_query.data=="graph_gen":    # 일반
+        manager_order(bot.callback_query.message.chat.id, 'graph_gen')
+    elif bot.callback_query.data=="graph_chobing":    # 일반
+        manager_order(bot.callback_query.message.chat.id, 'graph_chobing')
+    elif bot.callback_query.data=="graph_chobing":    # 일반
+        manager_order(bot.callback_query.message.chat.id, 'graph_wait')
+    elif bot.callback_query.data=="graph_non_subject":    # 일반
+        manager_order(bot.callback_query.message.chat.id, 'graph_non_subject')
+    elif bot.callback_query.data=="map_all":    # 일반
+        manager_order(bot.callback_query.message.chat.id, 'map_all')
+    elif bot.callback_query.data=="map_first":    # 일반
+        manager_order(bot.callback_query.message.chat.id, 'map_first')
+    elif bot.callback_query.data=="map_school":    # 일반
+        manager_order(bot.callback_query.message.chat.id, 'map_school')
     else:
         insa2020.sendMessage(bot.callback_query.message.chat.id, "다음 기회에..")
 
@@ -87,9 +118,8 @@ def text(bot, update):
 2021.3.1자 인사작업 데이터를 그래프와 지도로 보여드립니다.
 원하시는 정보를 아래와 같이 명령 할 수 있습니다.
 
-    /그래프 : 특만기 / 갑만기 / 일반 / 초빙교사 / 유예 / 비교과
-    /지  도 : 내신현황 / 1희망 현황
-    /학교현황 : 유치원 / 초등학교 / 중학교 / 고등학교 / 특수학교
+    /graph : 특만기 / 갑만기 / 일반 / 초빙교사 / 유예 / 비교과
+    /map : 내신현황 / 1희망 현황 / 경기도 학교 현황(초, 중, 고, 특수)
         '''
         insa2020.sendMessage(bot.message.chat.id, comment)
 
@@ -104,7 +134,6 @@ if __name__ == '__main__':
     insa2020 = ChatBotModel.Insa2020Bot()       # 챗봇 생성 - insa2020
     insa2020.add_handler('graph', check_order_graph)
     insa2020.add_handler('map', check_order_map)
-    insa2020.add_handler('school_stat', check_order_school_stat)
     insa2020.add_query_handler(callback_get)
     insa2020.add_message_handler(text)
     insa2020.add_error_handler(error)

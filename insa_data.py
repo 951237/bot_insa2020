@@ -5,8 +5,8 @@ dic_info = {
             'graph_chobing' : 'https://www.notion.so/951237/4bb6371081024dfc83328eff64d6fcf7',
             'graph_wait' : 'https://www.notion.so/951237/eb13acf2642a4f0cb34ad22f497b2125',
             'graph_non_subject' : 'https://www.notion.so/951237/e0fab3a1339b4fc1a97cafebc775eb71',
-            '지도_내신현황' : 'https://www.notion.so/951237/752eaad05a6945bea991a46c9d55d06e',
-            '지도_1희망현황' : 'https://www.notion.so/951237/1-81ca9e0e00a84c039e9bdb6f34a4b7d6',
-            '지도_학교현황' : 'https://www.notion.so/951237/16f8bb8056d54a0685dc642ee5df75e9'
+            'map_all' : 'https://www.notion.so/951237/752eaad05a6945bea991a46c9d55d06e',
+            'map_first' : 'https://www.notion.so/951237/1-81ca9e0e00a84c039e9bdb6f34a4b7d6',
+            'map_school' : 'https://www.notion.so/951237/16f8bb8056d54a0685dc642ee5df75e9'
 
 }
